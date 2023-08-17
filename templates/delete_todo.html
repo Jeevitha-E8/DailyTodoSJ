@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Delete Todo</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <p>Are you sure you want to delete the following todo?</p>
+      <p>{{ item.name }}</p>
+      <form action="/delete_todo/{{ item.id }}/" method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

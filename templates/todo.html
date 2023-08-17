@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4">To-Do List</h1>
+      <div class="col-md-6">
+      <!-- "Add" button that triggers the modal -->
+        <h7>Do you want to add a new todo?Click here</h7>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add</button>
+      </div>
+      <!-- Task list to display existing tasks -->
+      <ul class="list-group d-flex justify-content-between align-items-center">
+        <div class="list-group">
+        
+        <form action="/update_count" method="post">
+
+        <li>Wake up Early 
+         
+          <button type="submit" name="action" class="btn btn-success" value="tick">✓</button>
+          <button type="submit" name ="action" class="btn btn-danger" value="cross">✕</button>
+    
+        </li>
+    
+        <li>Reading
+          <button type="submit" name="action" class="btn btn-success" value="tick">✓</button>
+          <button type="submit" name="action" class="btn btn-danger" value="cross">✕</button>
+        </li>
+        
+        <li>Exercise
+          <button type="submit" name="action" class="btn btn-success" value="tick">✓</button>
+          <button type="submit" name="action" class="btn btn-danger" value="cross">✕</button>
+        </li>
+
+        <li>Meditation
+          <button type="submit" name="action" class="btn btn-success" value="tick">✓</button>
+          <button type="submit" name="action" class="btn btn-danger" value="cross">✕</button>
+        </li>
+  
+        </form>
+      
+        <!-- Existing tasks displayed here -->
+        {% for item in todotable %}
+        <form action="/update_count" method="post">
+          <li>{{item.name}}
+            <button type="submit" name="action" class="btn btn-success" value="tick">✓</button>
+            <button type="submit"  name="action" class="btn btn-danger" value="cross">✕</button>
+            <a href="/update_todo/{{item.id}}" class="btn btn-primary">Update Todo</a>
+            <a href="/delete_todo/{{item.id}}/" class="btn btn-danger" >DeleteTODO</a>       
+        </li>
+      </form>
+      </form>
+      {% endfor %}
+      
+    </ul>
+  </div>
+</div>
+</div>
+</div>
+<p>Done: {{ tick_count }}</p>
+<p>Not Done: {{ cross_count }}</p>
+<h6>Total Todo Count: {{ count }}</h6>
+<!-- Modal for adding a new task -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body" id="editableContent">
+        <form action="/add" method="post">
+            <input type="text" name="name" class="form-control" placeholder="Enter a new Todo">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" >Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
